@@ -1,0 +1,14 @@
+﻿@model DineshPortfolio.ViewModel.LoginViewModel
+
+@{
+    ViewData["Title"] = "Login";
+}
+
+<form class ="flex flex-col gap-6 m-10" method="post" action="Login">
+    <input asp-for="Username" placeholder="UserName" class="border-[1px] p-3 border-[#E2E2E2] rounded-sm" />
+    <input type="password" placeholder="Password" asp-for="Password" class="border-[1px] p-3 border-[#E2E2E2] rounded-sm" />
+    <div class="flex gap-3">
+        <input class="text-white  rounded-sm px-6 py-2 bg-[#009379] cursor-pointer" type="submit" value="Login" />
+        <a class=" rounded-sm px-6 py-2 border-[2px] border-[#E2E2E2] cursor-pointer" asp-controller="Home" asp-action="Index">Back to Home</a>
+    </div>
+</form>

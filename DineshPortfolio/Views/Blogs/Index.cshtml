@@ -1,0 +1,53 @@
+﻿@using DineshPortfolio.State;
+@model IEnumerable<DineshPortfolio.Models.Blog>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="flex m-6">
+    <div class="flex gap-6 justify-center flex-wrap flex">
+
+        @foreach (var item in Model)
+        {
+            <div class="w-80  overflow-hidden border rounded-md">
+                @if (LoginState.IsLoggedIn())
+                {
+                    <div class="flex absolute p-2 -mt-6 z-10 gap-2 justify-end">
+                        <a  class="w-10 h-10 bg-[#009379] text-white rounded-full flex items-center justify-center cursor-pointer"><span class="material-symbols-outlined">edit</span></a>
+                        <a asp-controller="Blogs" asp-action="Delete" asp-route-Id="@item.Id" class="w-10 h-10 bg-[#009379] cursor-pointer text-white rounded-full flex items-center justify-center"><span class="material-symbols-outlined">delete</span></a>
+                </div>
+                }
+
+                <div class="w-80 h-auto flex items-center relative">
+                    <img src="~/images/@item.CoverImage" class="w-full h-40 object-cover" alt="placeholder img" />
+                </div>
+                <div class="p-4">
+                    <div class="flex gap-2 mb-2">
+                        <div class="w-10 h-10 rounded-full bg-gray-400 animate-pulse"></div>
+                        <div class="text-sm text-gray-500">
+                            <p>By <span class="text-gray-700 cursor-pointer">Dinesh Ojha</span> </p>
+                            <h4>Updated over 2 weeks ago</h4>
+                        </div>
+                    </div>
+                    <h4 class=" text-3xl font-bold text-gray-700 cursor-pointer hover:text-gray-800">
+                        <a href="single.html">
+                            @item.Title
+                        </a>
+                    </h4>
+                    <p class="text-md my-4 text-gray-500 font-sans quillClass">
+                        @item.Description
+                    </p>
+                    <a asp-controller="Blogs" asp-action="Details" asp-route-Id="@item.Id" class="text-[#009379] mb-4">Read More →</a>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<script>
+    var classes = document.getElementsByClassName('quillClass');
+    debugger;
+    [].forEach.call(classes, function (item) { item.innerHTML = item.innerText; });
+
+</script>

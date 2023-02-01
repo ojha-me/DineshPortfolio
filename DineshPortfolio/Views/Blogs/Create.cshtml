@@ -1,0 +1,66 @@
+﻿@model DineshPortfolio.ViewModel.BlogViewModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<form class="flex flex-col gap-6 m-10" asp-controller="Blogs" asp-action="Create" method="post" enctype="multipart/form-data">
+    <input placeholder="Blog Title" asp-for="Title" class="border-[1px] p-3 border-[#E2E2E2] rounded-sm" />
+    <div>
+        <input asp-for="Description" name="Description" type="hidden" />
+        <div id="editor" class="h-72" name="editor"></div>
+    </div>
+
+    <input type="file" asp-for="File" class="border-[1px] p-3 border-[#E2E2E2] rounded-sm" />
+    <input class=" flex text-white px-6 py-2 bg-[#009379] cursor-pointer" type="submit" value="Create" class="btn btn-primary" />
+</form>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+<script>
+    var toolbarOptions = [
+        ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+        ['image'],
+        ['blockquote', 'code-block'],
+
+        [{ 'header': 1 }, { 'header': 2 }],               // custom button values
+        [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+        [{ 'script': 'sub' }, { 'script': 'super' }],      // superscript/subscript
+        [{ 'indent': '-1' }, { 'indent': '+1' }],          // outdent/indent
+        [{ 'direction': 'rtl' }],                         // text direction
+
+        [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
+        [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+
+        [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
+        [{ 'font': [] }],
+        [{ 'align': [] }],
+
+        ['clean']                                         // remove formatting button
+    ];
+    var options = {
+        theme: 'snow',
+        placeholder: 'Start writing here!',
+        modules: {
+            toolbar: toolbarOptions
+        }
+    };
+    var quill = new Quill('#editor', options);
+
+
+    var form = document.querySelector('form');
+    form.onsubmit = function () {
+        debugger;
+        // Populate hidden form on submit
+        var description = document.querySelector('input[name=Description]');
+        description.value = quill.root.innerHTML.toString();
+    };
+</script>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
